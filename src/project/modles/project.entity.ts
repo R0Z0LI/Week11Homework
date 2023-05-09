@@ -32,18 +32,29 @@ export class ProjectEntity {
 
   @ManyToMany(() => UserEntity, (user) => user.projects)
   @JoinColumn()
+  @Column({
+    nullable: true,
+    type: 'simple-array',
+    default: null,
+  })
   users: UserEntity[];
 
   @OneToMany(() => TaskEntity, (task) => task.projectId)
   @Column({
+    nullable: true,
     type: 'simple-array',
-    default: [],
+    default: null,
   })
   tasks: TaskEntity[];
 
   @ManyToOne(() => UserEntity, (user) => user.managedProjects)
   @JoinColumn({
     name: 'managerId',
+  })
+  @Column({
+    nullable: true,
+    type: 'simple-array',
+    default: null,
   })
   manager: UserEntity;
 }

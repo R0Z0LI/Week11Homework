@@ -12,7 +12,7 @@ export class UserService {
     private readonly userRepository: Repository<UserEntity>,
   ) {}
 
-  createPost(user: User): Observable<User> {
+  createUser(user: User): Observable<User> {
     return from(this.userRepository.save(user));
   }
 

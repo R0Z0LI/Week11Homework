@@ -1,4 +1,4 @@
-import { Project } from 'src/project/models/project.interface';
+import { Project } from 'src/project/modles/project.interface';
 import { Task } from 'src/task/models/task.interface';
 
 export interface User {
@@ -7,7 +7,7 @@ export interface User {
   email?: string;
   password?: string;
   isAdmin: boolean;
-  projects: Project[];
+  projects?: Project[];
   tasks?: Task[];
-  managedProjects: Project[];
+  managedProjects?: Project[];
 }

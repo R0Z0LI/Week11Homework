@@ -1,5 +1,6 @@
 import { User } from 'src/user/models/user.interface';
-import { Project } from 'src/project/models/project.interface';
+
+import { Project } from 'src/project/modles/project.interface';
 
 export enum TaskStatuse {
   TODO = 'to-do',

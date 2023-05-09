@@ -8,7 +8,7 @@ import {
   JoinTable,
 } from 'typeorm';
 import { TaskEntity } from 'src/task/models/task.entity';
-import { ProjectEntity } from 'src/project/models/project.entity';
+import { ProjectEntity } from 'src/project/modles/project.entity';
 
 @Entity('user')
 export class UserEntity {
@@ -31,22 +31,25 @@ export class UserEntity {
 
   @ManyToMany(() => ProjectEntity, (project) => project.users)
   @Column({
+    nullable: true,
     type: 'simple-array',
-    default: [],
+    default: null,
   })
   projects: ProjectEntity[];
 
-  @OneToMany(() => TaskEntity, (task) => task.taskId)
+  @OneToMany(() => TaskEntity, (task) => task.userId)
   @Column({
+    nullable: true,
     type: 'simple-array',
-    default: [],
+    default: null,
   })
   tasks: TaskEntity[];
 
   @OneToMany(() => ProjectEntity, (project) => project.manager)
   @Column({
+    nullable: true,
     type: 'simple-array',
-    default: [],
+    default: null,
   })
   managedProjects: ProjectEntity[];
 }

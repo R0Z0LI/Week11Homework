@@ -10,7 +10,7 @@ export class UserController {
 
   @Post()
   create(@Body() user: User): Observable<User> {
-    return this.userService.createPost(user);
+    return this.userService.createUser(user);
   }
 
   @Get()
