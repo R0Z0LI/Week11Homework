@@ -1,5 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 import { User } from 'src/user/models/user.interface';
+import { TaskStatuse } from './task.interface';
+import { Project } from 'src/project/models/project.interface';
 
 @Entity('task')
 export class TaskEntity {
@@ -15,6 +17,9 @@ export class TaskEntity {
   @Column()
   user: User;
 
-  @Column({ default: 'to-do' })
-  status: string;
+  @Column()
+  status: TaskStatuse;
+
+  @Column()
+  project: Project;
 }

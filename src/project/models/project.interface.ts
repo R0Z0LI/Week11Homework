@@ -1,10 +1,16 @@
 import { User } from 'src/user/models/user.interface';
+import { Task } from 'src/task/models/task.interface';
 
-export interface Task {
+export enum ProjectStatuse {
+  ACTIVE = 'active',
+  COMPLETED = 'completed',
+}
+
+export interface Project {
   id?: number;
   name?: string;
   description?: string;
-  status?: 'to-do' | 'in progress' | 'done';
+  status?: ProjectStatuse;
   users?: User[];
   tasks?: Task[];
   manager?: User;

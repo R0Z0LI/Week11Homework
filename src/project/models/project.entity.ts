@@ -1,8 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 import { User } from 'src/user/models/user.interface';
-import { Task } from './project.interface';
-@Entity('task')
-export class TaskEntity {
+import { Task } from 'src/task/models/task.interface';
+import { ProjectStatuse } from './project.interface';
+
+@Entity('project')
+export class ProjectEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -12,8 +14,8 @@ export class TaskEntity {
   @Column()
   description: string;
 
-  @Column({ default: 'to-do' })
-  status: string;
+  @Column()
+  status: ProjectStatuse;
 
   @Column({
     type: 'simple-array',

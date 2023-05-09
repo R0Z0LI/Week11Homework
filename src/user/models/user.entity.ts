@@ -1,4 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Task } from 'src/task/models/task.interface';
 
 @Entity('user')
 export class UserEntity {
@@ -18,4 +19,10 @@ export class UserEntity {
 
   @Column({ default: false })
   isAdmin: boolean;
+
+  @Column({
+    type: 'simple-array',
+    default: [],
+  })
+  tasks: Task[];
 }
