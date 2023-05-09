@@ -19,7 +19,7 @@ export class UserController {
   }
 
   @Delete(':id')
-  delete(@Param('id') id: number): Observable<DeleteResult> {
-    return this.userService.deleteUser(id);
+  deleteById(@Param('id') id: number): Observable<DeleteResult> {
+    return this.userService.deleteUserById(id);
   }
 }

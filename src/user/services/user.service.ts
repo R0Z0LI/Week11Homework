@@ -20,7 +20,7 @@ export class UserService {
     return from(this.userRepository.find());
   }
 
-  deleteUser(id: number): Observable<DeleteResult> {
+  deleteUserById(id: number): Observable<DeleteResult> {
     return from(this.userRepository.delete(id));
   }
 }
