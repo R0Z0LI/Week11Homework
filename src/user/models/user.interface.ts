@@ -1,4 +1,4 @@
-import { Project } from 'src/project/modles/project.interface';
+import { Project } from 'src/project/models/project.interface';
 import { Task } from 'src/task/models/task.interface';
 
 export interface User {

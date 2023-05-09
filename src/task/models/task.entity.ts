@@ -7,8 +7,8 @@ import {
 } from 'typeorm';
 import { User } from 'src/user/models/user.interface';
 import { TaskStatuse } from './task.interface';
-import { Project } from 'src/project/modles/project.interface';
-import { ProjectEntity } from 'src/project/modles/project.entity';
+import { Project } from 'src/project/models/project.interface';
+import { ProjectEntity } from 'src/project/models/project.entity';
 import { UserEntity } from 'src/user/models/user.entity';
 
 @Entity('task')
