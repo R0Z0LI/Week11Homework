@@ -6,8 +6,14 @@ export class UserEntity {
   id: number;
 
   @Column({ default: '' })
-  body: string;
+  name: string;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  createdAt: Date;
+  @Column({ default: '' })
+  email: string;
+
+  @Column({ default: '' })
+  password: string;
+
+  @Column({ default: false })
+  isAdmin: boolean;
 }
