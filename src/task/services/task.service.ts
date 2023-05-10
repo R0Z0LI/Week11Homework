@@ -16,11 +16,11 @@ export class TaskService {
     return from(this.taskRepository.save(task));
   }
 
-  findAll(): Observable<Task[]> {
+  findAllTask(): Observable<Task[]> {
     return from(this.taskRepository.find());
   }
 
-  deleteUserById(id: number): Observable<DeleteResult> {
+  deleteTaskById(id: number): Observable<DeleteResult> {
     return from(this.taskRepository.delete(id));
   }
 

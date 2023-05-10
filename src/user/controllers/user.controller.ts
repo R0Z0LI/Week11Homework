@@ -17,22 +17,22 @@ export class UserController {
   constructor(private userService: UserService) {}
 
   @Post()
-  create(@Body() user: User): Observable<User> {
+  createUser(@Body() user: User): Observable<User> {
     return this.userService.createUser(user);
   }
 
   @Get()
-  findAll(): Observable<User[]> {
+  findAllUser(): Observable<User[]> {
     return this.userService.findAllUser();
   }
 
   @Delete(':id')
-  deleteById(@Param('id') id: number): Observable<DeleteResult> {
+  deleteUserById(@Param('id') id: number): Observable<DeleteResult> {
     return this.userService.deleteUserById(id);
   }
 
   @Put(':id')
-  updateTaskById(
+  updateUserById(
     @Param('id') id: number,
     @Body() user: User,
   ): Observable<UpdateResult> {

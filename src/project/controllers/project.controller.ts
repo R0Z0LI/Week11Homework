@@ -1,4 +1,41 @@
-import { Controller } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
+import { Observable } from 'rxjs';
+import { DeleteResult, UpdateResult } from 'typeorm';
+import { Project } from '../models/project.interface';
+import { ProjectService } from '../services/project.service';
 
 @Controller('project')
-export class ProjectController {}
+export class ProjectController {
+  constructor(private projectService: ProjectService) {}
+
+  @Post()
+  createProject(@Body() project: Project): Observable<Project> {
+    return this.projectService.createProject(project);
+  }
+
+  @Get()
+  findAllProject(): Observable<Project[]> {
+    return this.projectService.findAll();
+  }
+
+  @Delete(':id')
+  deleteProjectById(@Param('id') id: number): Observable<DeleteResult> {
+    return this.projectService.deleteProjectById(id);
+  }
+
+  @Put(':id')
+  updateProjectById(
+    @Param('id') id: number,
+    @Body() project: Project,
+  ): Observable<UpdateResult> {
+    return this.projectService.updateProjectById(id, project);
+  }
+}

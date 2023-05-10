@@ -17,18 +17,18 @@ export class TaskController {
   constructor(private taskService: TaskService) {}
 
   @Post()
-  createPost(@Body() task: Task): Observable<Task> {
+  createTask(@Body() task: Task): Observable<Task> {
     return this.taskService.createTask(task);
   }
 
   @Get()
-  findAll(): Observable<Task[]> {
-    return this.taskService.findAll();
+  findAllTask(): Observable<Task[]> {
+    return this.taskService.findAllTask();
   }
 
   @Delete(':id')
-  deleteById(@Param('id') id: number): Observable<DeleteResult> {
-    return this.taskService.deleteUserById(id);
+  deleteTaskById(@Param('id') id: number): Observable<DeleteResult> {
+    return this.taskService.deleteTaskById(id);
   }
 
   @Put(':id')
