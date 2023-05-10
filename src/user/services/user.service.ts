@@ -4,12 +4,14 @@ import { Observable, from } from 'rxjs';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { UserEntity } from '../models/user.entity';
 import { User } from '../models/user.interface';
+import { userTransformer } from '../transformer/user.transformer';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
+    private userTransformer: userTransformer,
   ) {}
 
   createUser(user: User): Observable<User> {
@@ -21,27 +23,10 @@ export class UserService {
   }
 
   async findUserByEmail(email: string): Promise<User> {
-    //const userEntity = await this.userRepository.findOne({ where: { email } });
     const userEntity = await this.userRepository.findOne({
-      where: { email: 'john@example.com' },
+      where: { email: email },
     });
-    console.log(userEntity);
-    const user: User = {
-      id: userEntity.id,
-      name: userEntity.name,
-      email: userEntity.email,
-      password: userEntity.password,
-      isAdmin: userEntity.isAdmin,
-      projects: userEntity.projects,
-      tasks: userEntity.tasks,
-      managedProjects: userEntity.managedProjects,
-    };
-    if (user.email == email) {
-      console.log('TRUE');
-    } else {
-      console.log('FALSE');
-    }
-    return user;
+    return this.userTransformer.entityToObject(userEntity);
   }
 
   deleteUserById(id: number): Observable<DeleteResult> {

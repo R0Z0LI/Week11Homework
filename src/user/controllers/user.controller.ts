@@ -15,6 +15,7 @@ import { DeleteResult, UpdateResult } from 'typeorm';
 import { AdminAuthGuard } from 'src/auth/guards/admin.auth.guard';
 
 @Controller('user')
+@UseGuards(AdminAuthGuard)
 export class UserController {
   constructor(private userService: UserService) {}
 
@@ -24,7 +25,6 @@ export class UserController {
   }
 
   @Get()
-  @UseGuards(AdminAuthGuard)
   findAllUser(): Observable<User[]> {
     return this.userService.findAllUser();
   }

@@ -12,9 +12,10 @@ import { Observable } from 'rxjs';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { Project } from '../models/project.interface';
 import { ProjectService } from '../services/project.service';
-import { UserAuthGuard } from 'src/auth/guards/user.auth.guard';
+import { AdminAuthGuard } from 'src/auth/guards/admin.auth.guard';
 
 @Controller('project')
+@UseGuards(AdminAuthGuard)
 export class ProjectController {
   constructor(private projectService: ProjectService) {}
 
@@ -24,7 +25,6 @@ export class ProjectController {
   }
 
   @Get()
-  @UseGuards(UserAuthGuard)
   findAllProject(): Observable<Project[]> {
     return this.projectService.findAll();
   }
