@@ -20,6 +20,30 @@ export class UserService {
     return from(this.userRepository.find());
   }
 
+  async findUserByEmail(email: string): Promise<User> {
+    //const userEntity = await this.userRepository.findOne({ where: { email } });
+    const userEntity = await this.userRepository.findOne({
+      where: { email: 'john@example.com' },
+    });
+    console.log(userEntity);
+    const user: User = {
+      id: userEntity.id,
+      name: userEntity.name,
+      email: userEntity.email,
+      password: userEntity.password,
+      isAdmin: userEntity.isAdmin,
+      projects: userEntity.projects,
+      tasks: userEntity.tasks,
+      managedProjects: userEntity.managedProjects,
+    };
+    if (user.email == email) {
+      console.log('TRUE');
+    } else {
+      console.log('FALSE');
+    }
+    return user;
+  }
+
   deleteUserById(id: number): Observable<DeleteResult> {
     return from(this.userRepository.delete(id));
   }

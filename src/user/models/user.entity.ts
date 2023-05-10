@@ -9,6 +9,8 @@ import {
 } from 'typeorm';
 import { TaskEntity } from 'src/task/models/task.entity';
 import { ProjectEntity } from 'src/project/models/project.entity';
+import { Project } from 'src/project/models/project.interface';
+import { Task } from 'src/task/models/task.interface';
 
 @Entity('user')
 export class UserEntity {
@@ -35,7 +37,7 @@ export class UserEntity {
     type: 'simple-array',
     default: null,
   })
-  projects: ProjectEntity[];
+  projects: Project[];
 
   @OneToMany(() => TaskEntity, (task) => task.userId)
   @Column({
@@ -43,7 +45,7 @@ export class UserEntity {
     type: 'simple-array',
     default: null,
   })
-  tasks: TaskEntity[];
+  tasks: Task[];
 
   @OneToMany(() => ProjectEntity, (project) => project.manager)
   @Column({
@@ -51,5 +53,5 @@ export class UserEntity {
     type: 'simple-array',
     default: null,
   })
-  managedProjects: ProjectEntity[];
+  managedProjects: Project[];
 }

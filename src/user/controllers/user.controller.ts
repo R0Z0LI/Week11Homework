@@ -6,11 +6,13 @@ import {
   Delete,
   Param,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { User } from '../models/user.interface';
 import { UserService } from '../services/user.service';
 import { Observable, from } from 'rxjs';
 import { DeleteResult, UpdateResult } from 'typeorm';
+import { AdminAuthGuard } from 'src/auth/guards/admin.auth.guard';
 
 @Controller('user')
 export class UserController {
@@ -22,6 +24,7 @@ export class UserController {
   }
 
   @Get()
+  @UseGuards(AdminAuthGuard)
   findAllUser(): Observable<User[]> {
     return this.userService.findAllUser();
   }

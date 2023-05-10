@@ -6,11 +6,13 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { Project } from '../models/project.interface';
 import { ProjectService } from '../services/project.service';
+import { UserAuthGuard } from 'src/auth/guards/user.auth.guard';
 
 @Controller('project')
 export class ProjectController {
@@ -22,6 +24,7 @@ export class ProjectController {
   }
 
   @Get()
+  @UseGuards(UserAuthGuard)
   findAllProject(): Observable<Project[]> {
     return this.projectService.findAll();
   }
