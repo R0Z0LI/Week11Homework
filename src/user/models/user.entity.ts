@@ -32,19 +32,10 @@ export class UserEntity {
   isAdmin: boolean;
 
   @ManyToMany(() => ProjectEntity, (project) => project.users)
-  @Column({
-    nullable: true,
-    type: 'simple-array',
-    default: null,
-  })
+  @JoinTable({ name: 'user_project' })
   projects: Project[];
 
-  @OneToMany(() => TaskEntity, (task) => task.userId)
-  @Column({
-    nullable: true,
-    type: 'simple-array',
-    default: null,
-  })
+  @OneToMany(() => TaskEntity, (task) => task.userId, { cascade: true })
   tasks: Task[];
 
   @OneToMany(() => ProjectEntity, (project) => project.manager)

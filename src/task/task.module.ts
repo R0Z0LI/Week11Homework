@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TaskTransformer } from './transformer/task.transformer';
 
 @Module({
+  exports: [TaskService],
   imports: [TypeOrmModule.forFeature([TaskEntity])],
   controllers: [TaskController],
   providers: [TaskService, TaskTransformer],

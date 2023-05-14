@@ -22,15 +22,8 @@ export class TaskEntity {
   @Column()
   description: string;
 
-  @ManyToOne(() => UserEntity, (user) => user.tasks)
-  @JoinColumn({
-    name: 'taskId',
-  })
-  @Column({
-    nullable: true,
-    type: 'simple-array',
-    default: null,
-  })
+  @ManyToOne(() => UserEntity, { onDelete: 'CASCADE' })
+  @JoinColumn()
   userId: User;
 
   @Column({
@@ -39,14 +32,9 @@ export class TaskEntity {
   })
   status: TaskStatuse;
 
-  @ManyToOne(() => ProjectEntity, (project) => project.tasks)
+  @ManyToOne(() => ProjectEntity, { onDelete: 'CASCADE' })
   @JoinColumn({
     name: 'project_id',
-  })
-  @Column({
-    nullable: true,
-    type: 'simple-array',
-    default: null,
   })
   projectId: ProjectEntity;
 }

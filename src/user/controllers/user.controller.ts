@@ -13,6 +13,8 @@ import { UserService } from '../services/user.service';
 import { Observable, from } from 'rxjs';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { AdminAuthGuard } from 'src/auth/guards/admin.auth.guard';
+import { Project } from 'src/project/models/project.interface';
+import { Task } from 'src/task/models/task.interface';
 
 @Controller('user')
 @UseGuards(AdminAuthGuard)
@@ -35,10 +37,39 @@ export class UserController {
   }
 
   @Put(':id')
-  updateUserById(
-    @Param('id') id: number,
-    @Body() user: User,
-  ): Observable<UpdateResult> {
+  updateUserById(@Param('id') id: number, @Body() user: User): Promise<User> {
     return this.userService.updateUserById(id, user);
+  }
+
+  @Put('role/:id')
+  updateRoleById(
+    @Param('id') id: number,
+    @Body() admin: boolean,
+  ): Promise<User> {
+    return this.userService.updateUserRole(id, admin);
+  }
+
+  @Put('add/:id/:taskId')
+  addTaskById(
+    @Param('id') id: number,
+    @Param('taskId') taskId: number,
+  ): Promise<User> {
+    return this.userService.addTaskById(id, taskId);
+  }
+
+  @Put('project/:id/:projectId')
+  addProjectById(
+    @Param('id') id: number,
+    @Param('projectId') projectId: number,
+  ): Promise<User> {
+    return this.userService.addProjectById(id, projectId);
+  }
+
+  @Put(':id/project/:projectId')
+  addManagedProjectById(
+    @Param('id') id: number,
+    @Param('projectId') projectId: number,
+  ): Promise<UpdateResult> {
+    return this.userService.addManagedProjectById(id, projectId);
   }
 }

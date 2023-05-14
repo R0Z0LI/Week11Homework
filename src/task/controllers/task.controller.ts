@@ -39,10 +39,7 @@ export class TaskController {
 
   @Put(':id')
   @UseGuards(AdminAuthGuard)
-  updateTaskById(
-    @Param('id') id: number,
-    @Body() task: Task,
-  ): Observable<UpdateResult> {
+  updateTaskById(@Param('id') id: number, @Body() task: Task): Promise<Task> {
     return this.taskService.updateTaskById(id, task);
   }
 
