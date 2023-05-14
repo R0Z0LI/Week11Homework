@@ -50,12 +50,15 @@ export class TaskService {
     return await this.taskRepository.save({ id: foundTask.id, ...task });
   }
 
-  async updateTaskStatus(
+  async updateTaskStatusbyId(
     id: number,
     taskSTatus: TaskStatuse,
-  ): Promise<UpdateResult> {
+  ): Promise<Task> {
     const task = await this.findTaskById(id);
+    if (!task) {
+      throw new NotFoundException(`Task with ID ${id} not found`);
+    }
     task.status = taskSTatus;
-    return this.taskRepository.update(id, task);
+    return this.taskRepository.save(task);
   }
 }

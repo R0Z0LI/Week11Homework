@@ -32,7 +32,7 @@ export class UserController {
   }
 
   @Delete(':id')
-  deleteUserById(@Param('id') id: number): Observable<DeleteResult> {
+  deleteUserById(@Param('id') id: number): Promise<DeleteResult> {
     return this.userService.deleteUserById(id);
   }
 
@@ -49,7 +49,7 @@ export class UserController {
     return this.userService.updateUserRole(id, admin);
   }
 
-  @Put('add/:id/:taskId')
+  @Put('task/:id/:taskId')
   addTaskById(
     @Param('id') id: number,
     @Param('taskId') taskId: number,
@@ -65,11 +65,19 @@ export class UserController {
     return this.userService.addProjectById(id, projectId);
   }
 
-  @Put(':id/project/:projectId')
+  @Put('/managed/:id/:projectId')
   addManagedProjectById(
     @Param('id') id: number,
     @Param('projectId') projectId: number,
-  ): Promise<UpdateResult> {
+  ): Promise<User> {
     return this.userService.addManagedProjectById(id, projectId);
+  }
+
+  @Put('remove/:id/:projectId')
+  removeProjectById(
+    @Param('id') id: number,
+    @Param('projectId') projectId: number,
+  ): Promise<User> {
+    return this.userService.removeUserFromProject(id, projectId);
   }
 }

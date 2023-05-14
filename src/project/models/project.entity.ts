@@ -35,14 +35,9 @@ export class ProjectEntity {
   users: UserEntity[];
 
   @OneToMany(() => TaskEntity, (task) => task.projectId, { cascade: true })
-  @Column({
-    nullable: true,
-    type: 'simple-array',
-    default: null,
-  })
   tasks: TaskEntity[];
 
-  @ManyToOne(() => UserEntity, (user) => user.managedProjects)
+  @ManyToOne(() => UserEntity, { onDelete: 'CASCADE' })
   @JoinColumn()
   manager: UserEntity;
 }

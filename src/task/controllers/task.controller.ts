@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 import { AdminAuthGuard } from 'src/auth/guards/admin.auth.guard';
 import { UserAuthGuard } from 'src/auth/guards/user.auth.guard';
 import { DeleteResult, UpdateResult } from 'typeorm';
-import { Task } from '../models/task.interface';
+import { Task, TaskStatuse } from '../models/task.interface';
 import { TaskService } from '../services/task.service';
 
 @Controller('task')
@@ -45,7 +45,10 @@ export class TaskController {
 
   @Put(':id')
   @UseGuards(UserAuthGuard)
-  updateTaskStatusById(@Param('id') id: number, @Body() task: Task) {
-    return this.updateTaskStatusById(id, task);
+  updateTaskStatusById(
+    @Param('id') id: number,
+    @Body() taskStatus: TaskStatuse,
+  ): Promise<Task> {
+    return this.taskService.updateTaskStatusbyId(id, taskStatus);
   }
 }

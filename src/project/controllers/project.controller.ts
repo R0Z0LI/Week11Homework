@@ -41,4 +41,12 @@ export class ProjectController {
   ): Observable<UpdateResult> {
     return this.projectService.updateProjectById(id, project);
   }
+
+  @Put('task/:projectId/:taskId')
+  addTaskById(
+    @Param('projectId') projectId: number,
+    @Param('taskId') taskId: number,
+  ) {
+    return this.projectService.addTaskById(projectId, taskId);
+  }
 }

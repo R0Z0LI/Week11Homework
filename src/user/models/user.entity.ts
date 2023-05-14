@@ -23,9 +23,7 @@ export class UserEntity {
   @Column()
   email: string;
 
-  @Column({
-    unique: true,
-  })
+  @Column()
   password: string;
 
   @Column({ default: false })
@@ -38,11 +36,8 @@ export class UserEntity {
   @OneToMany(() => TaskEntity, (task) => task.userId, { cascade: true })
   tasks: Task[];
 
-  @OneToMany(() => ProjectEntity, (project) => project.manager)
-  @Column({
-    nullable: true,
-    type: 'simple-array',
-    default: null,
+  @OneToMany(() => ProjectEntity, (project) => project.manager, {
+    cascade: true,
   })
   managedProjects: Project[];
 }
