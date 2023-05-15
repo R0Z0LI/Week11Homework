@@ -70,11 +70,27 @@ export class UserController {
     return this.userService.addManagedProjectById(id, projectId);
   }
 
-  @Put('remove/:id/:projectId')
+  @Put('remove/project/:id/:projectId')
   removeProjectById(
     @Param('id') id: number,
     @Param('projectId') projectId: number,
   ): Promise<User> {
     return this.userService.removeUserFromProject(id, projectId);
+  }
+
+  @Put('remove/task/:id/:projectId')
+  removeTaskById(
+    @Param('id') id: number,
+    @Param('taskId') taskId: number,
+  ): Promise<User> {
+    return this.userService.removeUserFromTask(id, taskId);
+  }
+
+  @Put('remove/managed/:id/:projectId')
+  removeManagedProjectById(
+    @Param('id') id: number,
+    @Param('taskId') projectId: number,
+  ): Promise<User> {
+    return this.userService.removeUserFromManagedProject(id, projectId);
   }
 }

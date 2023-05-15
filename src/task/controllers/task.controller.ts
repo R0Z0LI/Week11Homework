@@ -8,10 +8,9 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
-import { Observable } from 'rxjs';
 import { AdminAuthGuard } from 'src/auth/guards/admin.auth.guard';
 import { UserAuthGuard } from 'src/auth/guards/user.auth.guard';
-import { DeleteResult, UpdateResult } from 'typeorm';
+import { DeleteResult } from 'typeorm';
 import { Task, TaskStatuse } from '../models/task.interface';
 import { TaskService } from '../services/task.service';
 

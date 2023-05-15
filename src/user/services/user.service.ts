@@ -58,7 +58,7 @@ export class UserService {
     });
     const managedProjects = foundUser.managedProjects || [];
     managedProjects.forEach((element) => {
-      this.removeuserFromManagedProject(id, element.id);
+      this.removeUserFromManagedProject(id, element.id);
     });
     return this.userRepository.delete(id);
   }
@@ -146,7 +146,7 @@ export class UserService {
     return await this.userRepository.save(user);
   }
 
-  async removeuserFromManagedProject(
+  async removeUserFromManagedProject(
     userId: number,
     projectId: number,
   ): Promise<User> {
