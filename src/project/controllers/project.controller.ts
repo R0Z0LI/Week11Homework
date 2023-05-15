@@ -8,11 +8,11 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
-import { Observable } from 'rxjs';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { Project } from '../models/project.interface';
 import { ProjectService } from '../services/project.service';
 import { AdminAuthGuard } from 'src/auth/guards/admin.auth.guard';
+import { User } from 'src/user/models/user.interface';
 
 @Controller('project')
 @UseGuards(AdminAuthGuard)
@@ -20,8 +20,10 @@ export class ProjectController {
   constructor(private projectService: ProjectService) {}
 
   @Post()
-  createProject(@Body() project: Project): Promise<Project> {
-    return this.projectService.createProject(project);
+  createProject(
+    @Body() data: { project: Project; users?: User[] },
+  ): Promise<Project> {
+    return this.projectService.createProject(data.project, data.users);
   }
 
   @Get()

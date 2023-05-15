@@ -1,12 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Observable, from } from 'rxjs';
-import { Task } from 'src/task/models/task.interface';
-import { DeleteResult, Repository, UpdateResult } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 import { UserEntity } from '../models/user.entity';
 import { User } from '../models/user.interface';
 import { userTransformer } from '../transformer/user.transformer';
-import { Project } from 'src/project/models/project.interface';
 import { TaskService } from 'src/task/services/task.service';
 import { ProjectService } from 'src/project/services/project.service';
 import * as crypto from 'crypto';
