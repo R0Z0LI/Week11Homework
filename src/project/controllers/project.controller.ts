@@ -9,7 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { DeleteResult, UpdateResult } from 'typeorm';
-import { Project } from '../models/project.interface';
+import { Project, ProjectStatuse } from '../models/project.interface';
 import { ProjectService } from '../services/project.service';
 import { AdminAuthGuard } from 'src/auth/guards/admin.auth.guard';
 import { User } from 'src/user/models/user.interface';
@@ -50,5 +50,13 @@ export class ProjectController {
     @Param('taskId') taskId: number,
   ) {
     return this.projectService.addTaskById(projectId, taskId);
+  }
+
+  @Put('status/:id')
+  updateTaskStatusById(
+    @Param('id') id: number,
+    @Body('status') projectStatus: ProjectStatuse,
+  ): Promise<Project> {
+    return this.projectService.updateTaskStatusbyId(id, projectStatus);
   }
 }

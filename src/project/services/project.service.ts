@@ -5,7 +5,7 @@ import { UserEntity } from 'src/user/models/user.entity';
 import { User } from 'src/user/models/user.interface';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { ProjectEntity } from '../models/project.entity';
-import { Project } from '../models/project.interface';
+import { Project, ProjectStatuse } from '../models/project.interface';
 import { ProjectTransformer } from '../transformer/project.transformer';
 
 @Injectable()
@@ -68,5 +68,17 @@ export class ProjectService {
     tasks.push(task);
     project.tasks = tasks;
     return await this.projectRepository.save(project);
+  }
+
+  async updateTaskStatusbyId(
+    id: number,
+    projectStatus: ProjectStatuse,
+  ): Promise<Project> {
+    const task = await this.findProjectById(id);
+    if (!task) {
+      throw new NotFoundException(`Task with ID ${id} not found`);
+    }
+    task.status = projectStatus;
+    return this.projectRepository.save(task);
   }
 }
