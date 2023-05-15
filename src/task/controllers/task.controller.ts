@@ -11,7 +11,7 @@ import {
 import { AdminAuthGuard } from 'src/auth/guards/admin.auth.guard';
 import { UserAuthGuard } from 'src/auth/guards/user.auth.guard';
 import { DeleteResult } from 'typeorm';
-import { Task, TaskStatuse } from '../models/task.interface';
+import { Task, TaskStatus } from '../models/task.interface';
 import { TaskService } from '../services/task.service';
 
 @Controller('task')
@@ -46,7 +46,7 @@ export class TaskController {
   @UseGuards(UserAuthGuard)
   updateTaskStatusById(
     @Param('id') id: number,
-    @Body() taskStatus: TaskStatuse,
+    @Body() taskStatus: TaskStatus,
   ): Promise<Task> {
     return this.taskService.updateTaskStatusbyId(id, taskStatus);
   }

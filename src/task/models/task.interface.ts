@@ -2,7 +2,7 @@ import { User } from 'src/user/models/user.interface';
 
 import { Project } from 'src/project/models/project.interface';
 
-export enum TaskStatuse {
+export enum TaskStatus {
   TODO = 'to-do',
   IN_PROGRESS = 'in-progress',
   DONE = 'done',
@@ -13,6 +13,6 @@ export interface Task {
   name?: string;
   description?: string;
   user?: User;
-  status?: TaskStatuse;
+  status?: TaskStatus;
   project?: Project;
 }

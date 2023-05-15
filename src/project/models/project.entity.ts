@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 import { User } from 'src/user/models/user.interface';
 import { Task } from 'src/task/models/task.interface';
-import { ProjectStatuse } from './project.interface';
+import { ProjectStatus } from './project.interface';
 import { TaskEntity } from 'src/task/models/task.entity';
 import { UserEntity } from 'src/user/models/user.entity';
 
@@ -27,9 +27,9 @@ export class ProjectEntity {
 
   @Column({
     type: 'enum',
-    enum: ProjectStatuse,
+    enum: ProjectStatus,
   })
-  status: ProjectStatuse;
+  status: ProjectStatus;
 
   @ManyToMany(() => UserEntity, (user) => user.projects)
   users: UserEntity[];
