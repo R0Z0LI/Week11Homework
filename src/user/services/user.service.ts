@@ -21,17 +21,17 @@ export class UserService {
     private readonly projectService: ProjectService,
   ) {}
 
-  createUser(user: User): Observable<User> {
+  async createUser(user: User): Promise<User> {
     const hashedPassword = crypto
       .createHash('sha256')
       .update(user.password)
       .digest('hex');
     user.password = hashedPassword;
-    return from(this.userRepository.save(user));
+    return await this.userRepository.save(user);
   }
 
-  findAllUser(): Observable<User[]> {
-    return from(this.userRepository.find());
+  async findAllUser(): Promise<User[]> {
+    return await this.userRepository.find();
   }
 
   async findUserByEmail(email: string): Promise<User> {

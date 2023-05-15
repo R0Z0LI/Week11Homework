@@ -16,20 +16,20 @@ export class ProjectService {
     private readonly taskService: TaskService,
   ) {}
 
-  createProject(project: Project): Observable<Project> {
-    return from(this.projectRepository.save(project));
+  async createProject(project: Project): Promise<Project> {
+    return await this.projectRepository.save(project);
   }
 
-  findAll(): Observable<Project[]> {
-    return from(this.projectRepository.find());
+  async findAll(): Promise<Project[]> {
+    return await this.projectRepository.find();
   }
 
-  deleteProjectById(id: number): Observable<DeleteResult> {
-    return from(this.projectRepository.delete(id));
+  async deleteProjectById(id: number): Promise<DeleteResult> {
+    return await this.projectRepository.delete(id);
   }
 
-  updateProjectById(id: number, project: Project): Observable<UpdateResult> {
-    return from(this.projectRepository.update(id, project));
+  async updateProjectById(id: number, project: Project): Promise<UpdateResult> {
+    return await this.projectRepository.update(id, project);
   }
 
   async findProjectById(id: number): Promise<Project> {

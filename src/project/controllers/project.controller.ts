@@ -20,17 +20,17 @@ export class ProjectController {
   constructor(private projectService: ProjectService) {}
 
   @Post()
-  createProject(@Body() project: Project): Observable<Project> {
+  createProject(@Body() project: Project): Promise<Project> {
     return this.projectService.createProject(project);
   }
 
   @Get()
-  findAllProject(): Observable<Project[]> {
+  findAllProject(): Promise<Project[]> {
     return this.projectService.findAll();
   }
 
   @Delete(':id')
-  deleteProjectById(@Param('id') id: number): Observable<DeleteResult> {
+  deleteProjectById(@Param('id') id: number): Promise<DeleteResult> {
     return this.projectService.deleteProjectById(id);
   }
 
@@ -38,7 +38,7 @@ export class ProjectController {
   updateProjectById(
     @Param('id') id: number,
     @Body() project: Project,
-  ): Observable<UpdateResult> {
+  ): Promise<UpdateResult> {
     return this.projectService.updateProjectById(id, project);
   }
 

@@ -22,12 +22,12 @@ export class UserController {
   constructor(private userService: UserService) {}
 
   @Post()
-  createUser(@Body() user: User): Observable<User> {
+  createUser(@Body() user: User): Promise<User> {
     return this.userService.createUser(user);
   }
 
   @Get()
-  findAllUser(): Observable<User[]> {
+  findAllUser(): Promise<User[]> {
     return this.userService.findAllUser();
   }
 

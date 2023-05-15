@@ -21,19 +21,19 @@ export class TaskController {
 
   @Post()
   @UseGuards(AdminAuthGuard)
-  createTask(@Body() task: Task): Observable<Task> {
+  createTask(@Body() task: Task): Promise<Task> {
     return this.taskService.createTask(task);
   }
 
   @Get()
   @UseGuards(AdminAuthGuard)
-  findAllTask(): Observable<Task[]> {
+  findAllTask(): Promise<Task[]> {
     return this.taskService.findAllTask();
   }
 
   @Delete(':id')
   @UseGuards(AdminAuthGuard)
-  deleteTaskById(@Param('id') id: number): Observable<DeleteResult> {
+  deleteTaskById(@Param('id') id: number): Promise<DeleteResult> {
     return this.taskService.deleteTaskById(id);
   }
 

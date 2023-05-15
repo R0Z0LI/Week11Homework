@@ -15,12 +15,12 @@ export class TaskService {
     private taskTransformer: TaskTransformer,
   ) {}
 
-  createTask(task: Task): Observable<Task> {
-    return from(this.taskRepository.save(task));
+  async createTask(task: Task): Promise<Task> {
+    return await this.taskRepository.save(task);
   }
 
-  findAllTask(): Observable<Task[]> {
-    return from(this.taskRepository.find());
+  async findAllTask(): Promise<Task[]> {
+    return await this.taskRepository.find();
   }
 
   async findTaskById(id: number): Promise<Task> {
@@ -31,8 +31,8 @@ export class TaskService {
     return this.taskTransformer.entityToObject(taskEntity);
   }
 
-  deleteTaskById(id: number): Observable<DeleteResult> {
-    return from(this.taskRepository.delete(id));
+  async deleteTaskById(id: number): Promise<DeleteResult> {
+    return await this.taskRepository.delete(id);
   }
 
   async findTaskByUserId(id: number): Promise<Task[]> {
