@@ -17,7 +17,6 @@ export class AuthService {
       .createHash('sha256')
       .update(password)
       .digest('hex');
-    console.log(passwordHash);
     if (user?.password.toString !== passwordHash.toString) {
       throw new UnauthorizedException();
     }
