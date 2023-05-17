@@ -1,7 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { from, Observable } from 'rxjs';
-import { User } from 'src/user/models/user.interface';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { TaskEntity } from '../models/task.entity';
 import { Task, TaskStatus } from '../models/task.interface';

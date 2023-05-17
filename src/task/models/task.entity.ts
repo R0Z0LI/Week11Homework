@@ -22,6 +22,9 @@ export class TaskEntity {
   @Column()
   description: string;
 
+  @Column({ default: false })
+  isArchived: boolean;
+
   @ManyToOne(() => UserEntity, { onDelete: 'CASCADE' })
   @JoinColumn()
   userId: User;

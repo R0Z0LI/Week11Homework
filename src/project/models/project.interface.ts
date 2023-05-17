@@ -10,6 +10,7 @@ export interface Project {
   id?: number;
   name?: string;
   description?: string;
+  isArchived: boolean;
   status?: ProjectStatus;
   users?: User[];
   tasks?: Task[];

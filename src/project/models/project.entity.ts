@@ -23,6 +23,9 @@ export class ProjectEntity {
   @Column()
   description: string;
 
+  @Column({ default: false })
+  isArchived: boolean;
+
   @Column({
     type: 'enum',
     enum: ProjectStatus,

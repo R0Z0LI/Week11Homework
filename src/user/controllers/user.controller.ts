@@ -46,6 +46,14 @@ export class UserController {
     return this.userService.updateUserRole(id, admin);
   }
 
+  @Put('suspended/:id')
+  updateSuspendedById(
+    @Param('id') id: number,
+    @Body() suspend: boolean,
+  ): Promise<User> {
+    return this.userService.updateUserSuspended(id, suspend);
+  }
+
   @Put('task/:id/:taskId')
   addTaskById(
     @Param('id') id: number,

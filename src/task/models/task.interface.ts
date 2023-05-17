@@ -12,6 +12,7 @@ export interface Task {
   id?: number;
   name?: string;
   description?: string;
+  isArchived: boolean;
   user?: User;
   status?: TaskStatus;
   project?: Project;

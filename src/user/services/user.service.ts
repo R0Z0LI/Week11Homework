@@ -69,6 +69,20 @@ export class UserService {
     return await this.userRepository.save({ id: foundUser.id, ...user });
   }
 
+  async updateUserLoginDate(user: User): Promise<User> {
+    user.lastLogin = new Date();
+    return await this.userRepository.save({ id: user.id, ...user });
+  }
+
+  async updateUserSuspended(id: number, suspended: boolean): Promise<User> {
+    const foundUser = await this.findUserById(id);
+    if (!foundUser) {
+      throw new NotFoundException(`User with ID ${id} not found`);
+    }
+    foundUser.isSuspended = suspended;
+    return await this.userRepository.save({ id: foundUser.id, ...foundUser });
+  }
+
   async updateUserRole(id: number, admin: boolean): Promise<User> {
     const foundUser = await this.findUserById(id);
     if (!foundUser) {

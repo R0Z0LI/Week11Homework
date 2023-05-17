@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { UserService } from 'src/user/services/user.service';
 import { JwtService } from '@nestjs/jwt';
 import * as crypto from 'crypto';
@@ -12,7 +16,9 @@ export class AuthService {
 
   async logIn(email: string, password: string) {
     const user = await this.userService.findUserByEmail(email);
-
+    if (!user) {
+      throw new NotFoundException(`User with email ${user.email} not found`);
+    }
     const passwordHash = crypto
       .createHash('sha256')
       .update(password)
