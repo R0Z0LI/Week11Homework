@@ -3,7 +3,6 @@ import { ProjectService } from './services/project.service';
 import { ProjectController } from './controllers/project.controller';
 import { ProjectEntity } from './models/project.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ProjectTransformer } from './transformer/project.transformer';
 import { TaskModule } from 'src/task/task.module';
 import { UserEntity } from 'src/user/models/user.entity';
 @Module({
@@ -13,7 +12,7 @@ import { UserEntity } from 'src/user/models/user.entity';
     TaskModule,
     TypeOrmModule.forFeature([UserEntity]),
   ],
-  providers: [ProjectService, ProjectTransformer],
+  providers: [ProjectService],
   controllers: [ProjectController],
 })
 export class ProjectModule {}

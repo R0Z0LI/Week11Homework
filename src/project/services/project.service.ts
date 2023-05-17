@@ -6,7 +6,6 @@ import { User } from 'src/user/models/user.interface';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { ProjectEntity } from '../models/project.entity';
 import { Project, ProjectStatus } from '../models/project.interface';
-import { ProjectTransformer } from '../transformer/project.transformer';
 
 @Injectable()
 export class ProjectService {
@@ -15,7 +14,6 @@ export class ProjectService {
     private readonly projectRepository: Repository<ProjectEntity>,
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
-    private projectTransformer: ProjectTransformer,
     private readonly taskService: TaskService,
   ) {}
 
@@ -52,7 +50,7 @@ export class ProjectService {
     const projectEntity = await this.projectRepository.findOne({
       where: { id: id },
     });
-    return this.projectTransformer.entityToObject(projectEntity);
+    return projectEntity;
   }
 
   async addTaskById(projectId: number, taskId: number) {
