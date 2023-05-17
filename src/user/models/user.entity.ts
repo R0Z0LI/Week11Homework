@@ -26,6 +26,12 @@ export class UserEntity {
   @Column()
   password: string;
 
+  @Column({ default: new Date() })
+  lastLogin: Date;
+
+  @Column({ default: false })
+  isSuspended: boolean;
+
   @Column({ default: false })
   isAdmin: boolean;
 

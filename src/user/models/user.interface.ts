@@ -6,6 +6,8 @@ export interface User {
   name?: string;
   email?: string;
   password?: string;
+  lastLogin: Date;
+  isSuspended: boolean;
   isAdmin: boolean;
   projects?: Project[];
   tasks?: Task[];

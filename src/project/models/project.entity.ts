@@ -8,8 +8,6 @@ import {
   ManyToMany,
   JoinTable,
 } from 'typeorm';
-import { User } from 'src/user/models/user.interface';
-import { Task } from 'src/task/models/task.interface';
 import { ProjectStatus } from './project.interface';
 import { TaskEntity } from 'src/task/models/task.entity';
 import { UserEntity } from 'src/user/models/user.entity';

@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository } from 'typeorm';
 import { UserEntity } from '../models/user.entity';
 import { User } from '../models/user.interface';
-import { userTransformer } from '../transformer/user.transformer';
 import { TaskService } from 'src/task/services/task.service';
 import { ProjectService } from 'src/project/services/project.service';
 import * as crypto from 'crypto';
@@ -13,7 +12,6 @@ export class UserService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
-    private userTransformer: userTransformer,
     private readonly taskService: TaskService,
     private readonly projectService: ProjectService,
   ) {}
@@ -31,16 +29,16 @@ export class UserService {
     return await this.userRepository.find();
   }
 
-  async findUserByEmail(email: string): Promise<User> {
+  async findUserByEmail(email: string): Promise<UserEntity> {
     const userEntity = await this.userRepository.findOne({
       where: { email: email },
     });
-    return this.userTransformer.entityToObject(userEntity);
+    return userEntity;
   }
 
   async findUserById(id: number): Promise<User> {
     const userEntity = await this.userRepository.findOne({ where: { id: id } });
-    return this.userTransformer.entityToObject(userEntity);
+    return userEntity;
   }
 
   async deleteUserById(id: number): Promise<DeleteResult> {
