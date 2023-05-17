@@ -46,6 +46,15 @@ export class TaskService {
     return await this.taskRepository.save({ id: foundTask.id, ...task });
   }
 
+  async updateTaskArchiveById(id: number, archive: boolean): Promise<Task> {
+    const foundTask = await this.findTaskById(id);
+    if (!foundTask) {
+      throw new NotFoundException(`Task with ID ${id} not found`);
+    }
+    foundTask.isArchived = archive;
+    return this.taskRepository.save({ id: foundTask.id, ...foundTask });
+  }
+
   async updateTaskStatusbyId(
     id: number,
     taskStatus: TaskStatus,

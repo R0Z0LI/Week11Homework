@@ -50,4 +50,12 @@ export class TaskController {
   ): Promise<Task> {
     return this.taskService.updateTaskStatusbyId(id, taskStatus);
   }
+
+  @Put('archived/:id')
+  updateTaskArchiveById(
+    @Param('id') id: number,
+    @Body() archive: boolean,
+  ): Promise<Task> {
+    return this.taskService.updateTaskArchiveById(id, archive);
+  }
 }
