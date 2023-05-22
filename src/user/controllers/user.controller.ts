@@ -46,12 +46,12 @@ export class UserController {
     return this.userService.updateUserRole(id, admin);
   }
 
-  @Put('suspended/:id')
-  updateSuspendedById(
+  @Put('suspend/:id')
+  updateSuspendById(
     @Param('id') id: number,
-    @Body() suspend: boolean,
+    @Body() suspendData: { suspend: boolean },
   ): Promise<User> {
-    return this.userService.updateUserSuspended(id, suspend);
+    return this.userService.updateUserSuspended(id, suspendData.suspend);
   }
 
   @Put('task/:id/:taskId')

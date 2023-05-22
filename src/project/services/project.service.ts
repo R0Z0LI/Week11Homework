@@ -35,7 +35,7 @@ export class ProjectService {
   }
 
   async findAll(): Promise<Project[]> {
-    return await this.projectRepository.find();
+    return await this.projectRepository.find({ relations: ['manager'] });
   }
 
   async deleteProjectById(id: number): Promise<DeleteResult> {
@@ -53,30 +53,45 @@ export class ProjectService {
     return projectEntity;
   }
 
+  async updateProjectArchiveById(
+    projectId: number,
+    archive: boolean,
+  ): Promise<Project> {
+    const foundProject = await this.findProjectById(projectId);
+    if (!foundProject) {
+      throw new NotFoundException(`Project with ID ${projectId} not found`);
+    }
+    foundProject.isArchived = archive;
+    return await this.projectRepository.save({
+      id: foundProject.id,
+      ...foundProject,
+    });
+  }
+
   async addTaskById(projectId: number, taskId: number) {
-    const project = await this.findProjectById(projectId);
-    if (!project) {
+    const foundProject = await this.findProjectById(projectId);
+    if (!foundProject) {
       throw new NotFoundException(`Project with ID ${projectId} not found`);
     }
     const task = await this.taskService.findTaskById(taskId);
     if (!task) {
       throw new NotFoundException(`Task with ID ${taskId} not found`);
     }
-    const tasks = project.tasks || [];
+    const tasks = foundProject.tasks || [];
     tasks.push(task);
-    project.tasks = tasks;
-    return await this.projectRepository.save(project);
+    foundProject.tasks = tasks;
+    return await this.projectRepository.save(foundProject);
   }
 
   async updateProjectStatusbyId(
     id: number,
     projectStatus: ProjectStatus,
   ): Promise<Project> {
-    const project = await this.findProjectById(id);
-    if (!project) {
+    const foundProject = await this.findProjectById(id);
+    if (!foundProject) {
       throw new NotFoundException(`Task with ID ${id} not found`);
     }
-    project.status = projectStatus;
-    return this.projectRepository.save(project);
+    foundProject.status = projectStatus;
+    return this.projectRepository.save(foundProject);
   }
 }
