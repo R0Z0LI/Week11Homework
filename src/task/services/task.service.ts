@@ -1,6 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
+import { ProjectEntity } from '../../project/models/project.entity';
+import { UserEntity } from '../../user/models/user.entity';
 import { TaskEntity } from '../models/task.entity';
 import { Task, TaskStatus } from '../models/task.interface';
 
@@ -9,9 +11,21 @@ export class TaskService {
   constructor(
     @InjectRepository(TaskEntity)
     private readonly taskRepository: Repository<TaskEntity>,
+    @InjectRepository(UserEntity)
+    private readonly userRepository: Repository<UserEntity>,
+    @InjectRepository(ProjectEntity)
+    private readonly projectRepository: Repository<ProjectEntity>,
   ) {}
 
   async createTask(task: Task): Promise<Task> {
+    const user = await this.userRepository.findOne({
+      where: { id: task.user.id },
+    });
+    const project = await this.projectRepository.findOne({
+      where: { id: task.project.id },
+    });
+    task.user = user;
+    task.project = project;
     return await this.taskRepository.save(task);
   }
 

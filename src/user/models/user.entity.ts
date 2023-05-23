@@ -39,7 +39,7 @@ export class UserEntity {
   @JoinTable({ name: 'user_project' })
   projects: Project[];
 
-  @OneToMany(() => TaskEntity, (task) => task.userId, { cascade: true })
+  @OneToMany(() => TaskEntity, (task) => task.user, { cascade: true })
   tasks: Task[];
 
   @OneToMany(() => ProjectEntity, (project) => project.manager, {

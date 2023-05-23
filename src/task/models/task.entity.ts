@@ -27,7 +27,7 @@ export class TaskEntity {
 
   @ManyToOne(() => UserEntity, { onDelete: 'CASCADE' })
   @JoinColumn()
-  userId: User;
+  user: User;
 
   @Column({
     type: 'enum',
@@ -39,5 +39,5 @@ export class TaskEntity {
   @JoinColumn({
     name: 'project_id',
   })
-  projectId: ProjectEntity;
+  project: ProjectEntity;
 }

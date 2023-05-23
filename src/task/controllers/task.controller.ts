@@ -42,7 +42,7 @@ export class TaskController {
     return this.taskService.updateTaskById(id, task);
   }
 
-  @Put(':id')
+  @Put('status/:id')
   @UseGuards(UserAuthGuard)
   updateTaskStatusById(
     @Param('id') id: number,
@@ -51,7 +51,7 @@ export class TaskController {
     return this.taskService.updateTaskStatusbyId(id, taskStatus);
   }
 
-  @Put('archived/:id')
+  @Put('archive/:id')
   updateTaskArchiveById(
     @Param('id') id: number,
     @Body() archive: boolean,

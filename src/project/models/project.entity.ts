@@ -35,7 +35,7 @@ export class ProjectEntity {
   @ManyToMany(() => UserEntity, (user) => user.projects)
   users: UserEntity[];
 
-  @OneToMany(() => TaskEntity, (task) => task.projectId, { cascade: true })
+  @OneToMany(() => TaskEntity, (task) => task.project, { cascade: true })
   tasks: TaskEntity[];
 
   @ManyToOne(() => UserEntity, { onDelete: 'CASCADE' })

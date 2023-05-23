@@ -107,6 +107,9 @@ export class ProjectService {
       throw new NotFoundException(`Task with ID ${id} not found`);
     }
     foundProject.status = projectStatus;
-    return this.projectRepository.save(foundProject);
+    return this.projectRepository.save({
+      id: foundProject.id,
+      ...foundProject,
+    });
   }
 }
