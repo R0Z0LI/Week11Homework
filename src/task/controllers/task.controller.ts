@@ -46,7 +46,7 @@ export class TaskController {
   @UseGuards(UserAuthGuard)
   updateTaskStatusById(
     @Param('id') id: number,
-    @Body() taskStatus: TaskStatus,
+    @Body('taskStatus') taskStatus: TaskStatus,
   ): Promise<Task> {
     return this.taskService.updateTaskStatusbyId(id, taskStatus);
   }
@@ -54,7 +54,7 @@ export class TaskController {
   @Put('archive/:id')
   updateTaskArchiveById(
     @Param('id') id: number,
-    @Body() archive: boolean,
+    @Body('isArchived') archive: boolean,
   ): Promise<Task> {
     return this.taskService.updateTaskArchiveById(id, archive);
   }
