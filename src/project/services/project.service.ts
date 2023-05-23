@@ -35,20 +35,34 @@ export class ProjectService {
   }
 
   async findAll(): Promise<Project[]> {
-    return await this.projectRepository.find({ relations: ['manager'] });
+    const projects = await this.projectRepository.find({
+      relations: ['manager', 'users'],
+    });
+    return projects;
   }
 
   async deleteProjectById(id: number): Promise<DeleteResult> {
     return await this.projectRepository.delete(id);
   }
 
-  async updateProjectById(id: number, project: Project): Promise<UpdateResult> {
-    return await this.projectRepository.update(id, project);
+  async updateProjectById(
+    projectId: number,
+    project: Project,
+  ): Promise<Project> {
+    const foundProject = await this.findProjectById(projectId);
+    if (!foundProject) {
+      throw new NotFoundException(`Project with ID ${projectId} not found`);
+    }
+    return await this.projectRepository.save({
+      id: foundProject.id,
+      ...project,
+    });
   }
 
   async findProjectById(id: number): Promise<Project> {
     const projectEntity = await this.projectRepository.findOne({
       where: { id: id },
+      relations: ['manager', 'users'],
     });
     return projectEntity;
   }
@@ -62,6 +76,7 @@ export class ProjectService {
       throw new NotFoundException(`Project with ID ${projectId} not found`);
     }
     foundProject.isArchived = archive;
+    console.log(foundProject.isArchived);
     return await this.projectRepository.save({
       id: foundProject.id,
       ...foundProject,

@@ -40,8 +40,16 @@ export class ProjectController {
   updateProjectById(
     @Param('id') id: number,
     @Body() project: Project,
-  ): Promise<UpdateResult> {
+  ): Promise<Project> {
     return this.projectService.updateProjectById(id, project);
+  }
+
+  @Put('archive/:id')
+  archiveProjectById(
+    @Param('id') id: number,
+    @Body('isArchived') isArchived: boolean,
+  ): Promise<Project> {
+    return this.projectService.updateProjectArchiveById(id, isArchived);
   }
 
   @Put('task/:projectId/:taskId')
