@@ -19,17 +19,22 @@ export class AuthService {
     if (!user) {
       throw new NotFoundException(`User with email ${user.email} not found`);
     }
+    const upDateUser = await this.userService.updateUserLoginDate(user);
     const passwordHash = crypto
       .createHash('sha256')
       .update(password)
       .digest('hex');
-    if (user?.password.toString !== passwordHash.toString) {
+    if (upDateUser?.password.toString !== passwordHash.toString) {
       throw new UnauthorizedException();
     }
-    const payload = { sub: user.id, email: user.email, admin: user.isAdmin };
+    const payload = {
+      sub: upDateUser.id,
+      email: upDateUser.email,
+      admin: upDateUser.isAdmin,
+    };
     return {
       access_token: await this.jwtService.signAsync(payload),
-      role: user.isAdmin,
+      role: upDateUser.isAdmin,
     };
   }
   async validateToken(token: string): Promise<any> {
