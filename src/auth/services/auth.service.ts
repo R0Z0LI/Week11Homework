@@ -24,7 +24,7 @@ export class AuthService {
       .createHash('sha256')
       .update(password)
       .digest('hex');
-    if (upDateUser?.password.toString !== passwordHash.toString) {
+    if (upDateUser?.password !== passwordHash) {
       throw new UnauthorizedException();
     }
     const payload = {
@@ -35,6 +35,7 @@ export class AuthService {
     return {
       access_token: await this.jwtService.signAsync(payload),
       role: upDateUser.isAdmin,
+      suspended: upDateUser.isSuspended,
     };
   }
   async validateToken(token: string): Promise<any> {
