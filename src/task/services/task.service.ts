@@ -52,6 +52,15 @@ export class TaskService {
       .getMany();
   }
 
+  async findTaskByProjectId(id: string): Promise<Task[]> {
+    const tasks = await this.findAllTask();
+    const numberId = parseInt(id);
+    const filteredTasks = tasks.filter((task) => {
+      return task.project.id === numberId;
+    });
+    return filteredTasks;
+  }
+
   async updateTaskById(id: number, task: Task): Promise<Task> {
     const foundTask = await this.findTaskById(id);
     if (!foundTask) {

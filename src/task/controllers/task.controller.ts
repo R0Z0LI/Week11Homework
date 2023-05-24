@@ -36,6 +36,12 @@ export class TaskController {
     return this.taskService.deleteTaskById(id);
   }
 
+  @Get(':id')
+  @UseGuards(AdminAuthGuard)
+  async findTaskByProjectId(@Param('id') id: string): Promise<Task[]> {
+    return await this.taskService.findTaskByProjectId(id);
+  }
+
   @Put(':id')
   @UseGuards(AdminAuthGuard)
   updateTaskById(@Param('id') id: number, @Body() task: Task): Promise<Task> {
