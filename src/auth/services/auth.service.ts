@@ -32,4 +32,12 @@ export class AuthService {
       role: user.isAdmin,
     };
   }
+  async validateToken(token: string): Promise<any> {
+    try {
+      const payload = await this.jwtService.verifyAsync(token);
+      return { isValid: true, payload };
+    } catch (err) {
+      return { isValid: false };
+    }
+  }
 }

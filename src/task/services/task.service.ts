@@ -45,11 +45,16 @@ export class TaskService {
     return await this.taskRepository.delete(id);
   }
 
-  async findTaskByUserId(id: number): Promise<Task[]> {
-    return await this.taskRepository
-      .createQueryBuilder('task')
-      .where('task.userId = :userId', { userId: id })
-      .getMany();
+  async findTaskByUserId(id: string): Promise<Task[]> {
+    const tasks = await this.findAllTask();
+    const numberId = parseInt(id);
+    console.log(id);
+    const filteredTasks = tasks.filter((task) => {
+      console.log(task.user.id);
+      return task.user.id === numberId;
+    });
+    console.log(filteredTasks);
+    return filteredTasks;
   }
 
   async findTaskByProjectId(id: string): Promise<Task[]> {

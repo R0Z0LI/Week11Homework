@@ -36,7 +36,13 @@ export class TaskController {
     return this.taskService.deleteTaskById(id);
   }
 
-  @Get(':id')
+  @Get('/user/:id')
+  @UseGuards(UserAuthGuard)
+  async findTaskByUserId(@Param('id') id: string): Promise<Task[]> {
+    return await this.taskService.findTaskByUserId(id);
+  }
+
+  @Get('/project/:id')
   @UseGuards(AdminAuthGuard)
   async findTaskByProjectId(@Param('id') id: string): Promise<Task[]> {
     return await this.taskService.findTaskByProjectId(id);
