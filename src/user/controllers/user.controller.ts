@@ -29,18 +29,18 @@ export class UserController {
   }
 
   @Delete(':id')
-  deleteUserById(@Param('id') id: number): Promise<DeleteResult> {
+  deleteUserById(@Param('id') id: string): Promise<DeleteResult> {
     return this.userService.deleteUserById(id);
   }
 
   @Put(':id')
-  updateUserById(@Param('id') id: number, @Body() user: User): Promise<User> {
+  updateUserById(@Param('id') id: string, @Body() user: User): Promise<User> {
     return this.userService.updateUserById(id, user);
   }
 
   @Put('role/:id')
   updateRoleById(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Body() admin: boolean,
   ): Promise<User> {
     return this.userService.updateUserRole(id, admin);
@@ -48,7 +48,7 @@ export class UserController {
 
   @Put('suspend/:id')
   updateSuspendById(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Body() suspendData: { suspend: boolean },
   ): Promise<User> {
     return this.userService.updateUserSuspended(id, suspendData.suspend);
@@ -56,7 +56,7 @@ export class UserController {
 
   @Put('task/:id/:taskId')
   addTaskById(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Param('taskId') taskId: number,
   ): Promise<User> {
     return this.userService.addTaskById(id, taskId);
@@ -64,7 +64,7 @@ export class UserController {
 
   @Put('project/:id/:projectId')
   addProjectById(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Param('projectId') projectId: number,
   ): Promise<User> {
     return this.userService.addProjectById(id, projectId);
@@ -72,7 +72,7 @@ export class UserController {
 
   @Put('/managed/:id/:projectId')
   addManagedProjectById(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Param('projectId') projectId: number,
   ): Promise<User> {
     return this.userService.addManagedProjectById(id, projectId);
@@ -80,7 +80,7 @@ export class UserController {
 
   @Put('remove/project/:id/:projectId')
   removeProjectById(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Param('projectId') projectId: number,
   ): Promise<User> {
     return this.userService.removeUserFromProject(id, projectId);
@@ -88,7 +88,7 @@ export class UserController {
 
   @Put('remove/task/:id/:projectId')
   removeTaskById(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Param('taskId') taskId: number,
   ): Promise<User> {
     return this.userService.removeUserFromTask(id, taskId);
@@ -96,7 +96,7 @@ export class UserController {
 
   @Put('remove/managed/:id/:projectId')
   removeManagedProjectById(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Param('taskId') projectId: number,
   ): Promise<User> {
     return this.userService.removeUserFromManagedProject(id, projectId);

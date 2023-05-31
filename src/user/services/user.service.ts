@@ -36,31 +36,11 @@ export class UserService {
     return userEntity;
   }
 
-  async findUserById(id: number): Promise<User> {
+  async findUserById(id: string): Promise<User> {
     return await this.userRepository.findOne({ where: { id: id } });
   }
 
-  async deleteUserById(id: number): Promise<DeleteResult> {
-    const foundUser = await this.findUserById(id);
-    if (!foundUser) {
-      throw new NotFoundException(`User with ID ${id} not found`);
-    }
-    const projects = foundUser.projects || [];
-    projects.forEach((element) => {
-      this.removeUserFromProject(id, element.id);
-    });
-    const tasks = foundUser.tasks || [];
-    tasks.forEach((element) => {
-      this.removeUserFromTask(id, element.id);
-    });
-    const managedProjects = foundUser.managedProjects || [];
-    managedProjects.forEach((element) => {
-      this.removeUserFromManagedProject(id, element.id);
-    });
-    return this.userRepository.delete(id);
-  }
-
-  async updateUserById(id: number, user: User): Promise<User> {
+  async updateUserById(id: string, user: User): Promise<User> {
     const foundUser = await this.findUserById(id);
     if (!foundUser) {
       throw new NotFoundException(`User with ID ${id} not found`);
@@ -78,7 +58,7 @@ export class UserService {
     return await this.userRepository.save({ id: user.id, ...user });
   }
 
-  async updateUserSuspended(id: number, suspended: boolean): Promise<User> {
+  async updateUserSuspended(id: string, suspended: boolean): Promise<User> {
     const foundUser = await this.findUserById(id);
     if (!foundUser) {
       throw new NotFoundException(`User with ID ${id} not found`);
@@ -87,7 +67,7 @@ export class UserService {
     return await this.userRepository.save({ id: foundUser.id, ...foundUser });
   }
 
-  async updateUserRole(id: number, admin: boolean): Promise<User> {
+  async updateUserRole(id: string, admin: boolean): Promise<User> {
     const foundUser = await this.findUserById(id);
     if (!foundUser) {
       throw new NotFoundException(`User with ID ${id} not found`);
@@ -96,7 +76,7 @@ export class UserService {
     return await this.userRepository.save({ id: foundUser.id, ...foundUser });
   }
 
-  async addTaskById(id: number, taskId: number): Promise<User> {
+  async addTaskById(id: string, taskId: number): Promise<User> {
     const foundTask = await this.taskService.findTaskById(taskId);
     if (!foundTask) {
       throw new NotFoundException(`Task with ID ${taskId} not found`);
@@ -114,7 +94,7 @@ export class UserService {
     return await this.userRepository.save(foundUser);
   }
 
-  async addProjectById(id: number, projectId: number): Promise<User> {
+  async addProjectById(id: string, projectId: number): Promise<User> {
     const foundProject = await this.projectService.findProjectById(projectId);
     if (!foundProject) {
       throw new NotFoundException(`Project with ID ${projectId} not found`);
@@ -129,8 +109,26 @@ export class UserService {
     return await this.userRepository.save(foundUser);
   }
 
+  async deleteUserById(id: string): Promise<DeleteResult> {
+    const foundUser = await this.findUserById(id);
+    if (!foundUser) {
+      throw new NotFoundException(`User with ID ${id} not found`);
+    }
+    foundUser.projects = [];
+    await this.userRepository.save(foundUser);
+    const tasks = foundUser.tasks || [];
+    tasks.forEach((element) => {
+      this.removeUserFromTask(id, element.id);
+    });
+    const managedProjects = foundUser.managedProjects || [];
+    managedProjects.forEach((element) => {
+      this.removeUserFromManagedProject(id, element.id);
+    });
+    return this.userRepository.delete(id);
+  }
+
   async removeUserFromProject(
-    userId: number,
+    userId: string,
     projectId: number,
   ): Promise<User> {
     const foundProject = await this.projectService.findProjectById(projectId);
@@ -141,13 +139,19 @@ export class UserService {
     if (!foundUser) {
       throw new NotFoundException(`User with ID ${userId} not found`);
     }
-    const projects = foundUser.projects || [];
-    const updatedProjects = projects.filter((p) => p.id !== foundProject.id);
+    const updatedProjects = foundUser.projects.filter(
+      (p) => p.id !== foundProject.id,
+    );
     foundUser.projects = updatedProjects;
+
+    const updatedUsers = foundProject.users.filter((u) => u.id !== userId);
+    foundProject.users = updatedUsers;
+
+    await this.projectService.updateProjectById(foundProject.id, foundProject);
     return await this.userRepository.save(foundUser);
   }
 
-  async removeUserFromTask(userId: number, taskId: number): Promise<User> {
+  async removeUserFromTask(userId: string, taskId: number): Promise<User> {
     const foundTask = await this.taskService.findTaskById(taskId);
     if (!foundTask) {
       throw new NotFoundException(`Project with ID ${foundTask} not found`);
@@ -157,13 +161,13 @@ export class UserService {
       throw new NotFoundException(`User with ID ${userId} not found`);
     }
     const tasks = foundUser.tasks || [];
-    const updatedTasks = tasks.filter((t) => foundTask.id !== taskId);
+    const updatedTasks = tasks.filter((t) => t.id !== taskId);
     foundUser.tasks = updatedTasks;
     return await this.userRepository.save(foundUser);
   }
 
   async removeUserFromManagedProject(
-    userId: number,
+    userId: string,
     projectId: number,
   ): Promise<User> {
     const foundProject = await this.projectService.findProjectById(projectId);
@@ -180,7 +184,7 @@ export class UserService {
     return await this.userRepository.save(foundUser);
   }
 
-  async addManagedProjectById(id: number, projectId: number): Promise<User> {
+  async addManagedProjectById(id: string, projectId: number): Promise<User> {
     const foundProject = await this.projectService.findProjectById(projectId);
     if (!foundProject) {
       throw new NotFoundException(`Project with ID ${projectId} not found`);

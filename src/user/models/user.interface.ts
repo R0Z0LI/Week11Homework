@@ -2,7 +2,7 @@ import { Project } from 'src/project/models/project.interface';
 import { Task } from 'src/task/models/task.interface';
 
 export interface User {
-  id?: number;
+  id?: string;
   name?: string;
   email?: string;
   password?: string;

@@ -47,11 +47,11 @@ export class TaskService {
 
   async findTaskByUserId(id: string): Promise<Task[]> {
     const tasks = await this.findAllTask();
-    const numberId = parseInt(id);
+
     console.log(id);
     const filteredTasks = tasks.filter((task) => {
       console.log(task.user.id);
-      return task.user.id === numberId;
+      return task.user.id === id;
     });
     console.log(filteredTasks);
     return filteredTasks;
