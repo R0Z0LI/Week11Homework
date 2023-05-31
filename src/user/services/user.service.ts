@@ -76,7 +76,7 @@ export class UserService {
     return await this.userRepository.save({ id: foundUser.id, ...foundUser });
   }
 
-  async addTaskById(id: string, taskId: number): Promise<User> {
+  async addTaskById(id: string, taskId: string): Promise<User> {
     const foundTask = await this.taskService.findTaskById(taskId);
     if (!foundTask) {
       throw new NotFoundException(`Task with ID ${taskId} not found`);
@@ -151,7 +151,7 @@ export class UserService {
     return await this.userRepository.save(foundUser);
   }
 
-  async removeUserFromTask(userId: string, taskId: number): Promise<User> {
+  async removeUserFromTask(userId: string, taskId: string): Promise<User> {
     const foundTask = await this.taskService.findTaskById(taskId);
     if (!foundTask) {
       throw new NotFoundException(`Project with ID ${foundTask} not found`);

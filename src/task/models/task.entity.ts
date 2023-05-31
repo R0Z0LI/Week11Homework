@@ -10,11 +10,16 @@ import { TaskStatus } from './task.interface';
 import { Project } from 'src/project/models/project.interface';
 import { ProjectEntity } from 'src/project/models/project.entity';
 import { UserEntity } from 'src/user/models/user.entity';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity('task')
 export class TaskEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @ApiProperty({
+    type: 'string',
+    format: 'uuid',
+  })
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   name: string;

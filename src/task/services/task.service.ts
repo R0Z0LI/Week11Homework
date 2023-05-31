@@ -18,6 +18,7 @@ export class TaskService {
   ) {}
 
   async createTask(task: Task): Promise<Task> {
+    console.log(task);
     const user = await this.userRepository.findOne({
       where: { id: task.user.id },
     });
@@ -33,7 +34,7 @@ export class TaskService {
     return await this.taskRepository.find({ relations: ['user', 'project'] });
   }
 
-  async findTaskById(id: number): Promise<Task> {
+  async findTaskById(id: string): Promise<Task> {
     const taskEntity = await this.taskRepository.findOne({
       where: { id: id },
       relations: ['user', 'project'],
@@ -41,7 +42,7 @@ export class TaskService {
     return taskEntity;
   }
 
-  async deleteTaskById(id: number): Promise<DeleteResult> {
+  async deleteTaskById(id: string): Promise<DeleteResult> {
     return await this.taskRepository.delete(id);
   }
 
@@ -66,7 +67,7 @@ export class TaskService {
     return filteredTasks;
   }
 
-  async updateTaskById(id: number, task: Task): Promise<Task> {
+  async updateTaskById(id: string, task: Task): Promise<Task> {
     const foundTask = await this.findTaskById(id);
     if (!foundTask) {
       throw new NotFoundException(`Task with ID ${id} not found`);
@@ -74,7 +75,7 @@ export class TaskService {
     return await this.taskRepository.save({ id: foundTask.id, ...task });
   }
 
-  async updateTaskArchiveById(id: number, archive: boolean): Promise<Task> {
+  async updateTaskArchiveById(id: string, archive: boolean): Promise<Task> {
     const foundTask = await this.findTaskById(id);
     if (!foundTask) {
       throw new NotFoundException(`Task with ID ${id} not found`);
@@ -84,7 +85,7 @@ export class TaskService {
   }
 
   async updateTaskStatusbyId(
-    id: number,
+    id: string,
     taskStatus: TaskStatus,
   ): Promise<Task> {
     const task = await this.findTaskById(id);

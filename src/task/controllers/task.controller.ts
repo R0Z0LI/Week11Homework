@@ -32,7 +32,7 @@ export class TaskController {
 
   @Delete(':id')
   @UseGuards(AdminAuthGuard)
-  deleteTaskById(@Param('id') id: number): Promise<DeleteResult> {
+  deleteTaskById(@Param('id') id: string): Promise<DeleteResult> {
     return this.taskService.deleteTaskById(id);
   }
 
@@ -50,14 +50,14 @@ export class TaskController {
 
   @Put(':id')
   @UseGuards(AdminAuthGuard)
-  updateTaskById(@Param('id') id: number, @Body() task: Task): Promise<Task> {
+  updateTaskById(@Param('id') id: string, @Body() task: Task): Promise<Task> {
     return this.taskService.updateTaskById(id, task);
   }
 
   @Put('status/:id')
   @UseGuards(UserAuthGuard)
   updateTaskStatusById(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Body('taskStatus') taskStatus: TaskStatus,
   ): Promise<Task> {
     return this.taskService.updateTaskStatusbyId(id, taskStatus);
@@ -65,7 +65,7 @@ export class TaskController {
 
   @Put('archive/:id')
   updateTaskArchiveById(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Body('isArchived') archive: boolean,
   ): Promise<Task> {
     return this.taskService.updateTaskArchiveById(id, archive);

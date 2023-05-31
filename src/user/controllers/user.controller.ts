@@ -57,7 +57,7 @@ export class UserController {
   @Put('task/:id/:taskId')
   addTaskById(
     @Param('id') id: string,
-    @Param('taskId') taskId: number,
+    @Param('taskId') taskId: string,
   ): Promise<User> {
     return this.userService.addTaskById(id, taskId);
   }
@@ -89,7 +89,7 @@ export class UserController {
   @Put('remove/task/:id/:projectId')
   removeTaskById(
     @Param('id') id: string,
-    @Param('taskId') taskId: number,
+    @Param('taskId') taskId: string,
   ): Promise<User> {
     return this.userService.removeUserFromTask(id, taskId);
   }

@@ -92,7 +92,7 @@ export class ProjectService {
     });
   }
 
-  async addTaskById(projectId: string, taskId: number) {
+  async addTaskById(projectId: string, taskId: string) {
     const foundProject = await this.findProjectById(projectId);
     if (!foundProject) {
       throw new NotFoundException(`Project with ID ${projectId} not found`);

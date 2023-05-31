@@ -55,7 +55,7 @@ export class ProjectController {
   @Put('task/:projectId/:taskId')
   addTaskById(
     @Param('projectId') projectId: string,
-    @Param('taskId') taskId: number,
+    @Param('taskId') taskId: string,
   ) {
     return this.projectService.addTaskById(projectId, taskId);
   }
