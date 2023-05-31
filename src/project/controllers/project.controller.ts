@@ -32,13 +32,13 @@ export class ProjectController {
   }
 
   @Delete(':id')
-  deleteProjectById(@Param('id') id: number): Promise<DeleteResult> {
+  deleteProjectById(@Param('id') id: string): Promise<DeleteResult> {
     return this.projectService.deleteProjectById(id);
   }
 
   @Put(':id')
   updateProjectById(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Body() project: Project,
   ): Promise<Project> {
     return this.projectService.updateProjectById(id, project);
@@ -46,7 +46,7 @@ export class ProjectController {
 
   @Put('archive/:id')
   archiveProjectById(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Body('isArchived') isArchived: boolean,
   ): Promise<Project> {
     return this.projectService.updateProjectArchiveById(id, isArchived);
@@ -54,7 +54,7 @@ export class ProjectController {
 
   @Put('task/:projectId/:taskId')
   addTaskById(
-    @Param('projectId') projectId: number,
+    @Param('projectId') projectId: string,
     @Param('taskId') taskId: number,
   ) {
     return this.projectService.addTaskById(projectId, taskId);
@@ -62,7 +62,7 @@ export class ProjectController {
 
   @Put('status/:id')
   updateProjectStatusById(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Body('status') projectStatus: ProjectStatus,
   ): Promise<Project> {
     return this.projectService.updateProjectStatusbyId(id, projectStatus);

@@ -7,7 +7,7 @@ export enum ProjectStatus {
 }
 
 export interface Project {
-  id?: number;
+  id?: string;
   name?: string;
   description?: string;
   isArchived: boolean;

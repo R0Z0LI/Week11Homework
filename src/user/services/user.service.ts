@@ -94,7 +94,7 @@ export class UserService {
     return await this.userRepository.save(foundUser);
   }
 
-  async addProjectById(id: string, projectId: number): Promise<User> {
+  async addProjectById(id: string, projectId: string): Promise<User> {
     const foundProject = await this.projectService.findProjectById(projectId);
     if (!foundProject) {
       throw new NotFoundException(`Project with ID ${projectId} not found`);
@@ -129,7 +129,7 @@ export class UserService {
 
   async removeUserFromProject(
     userId: string,
-    projectId: number,
+    projectId: string,
   ): Promise<User> {
     const foundProject = await this.projectService.findProjectById(projectId);
     if (!foundProject) {
@@ -168,7 +168,7 @@ export class UserService {
 
   async removeUserFromManagedProject(
     userId: string,
-    projectId: number,
+    projectId: string,
   ): Promise<User> {
     const foundProject = await this.projectService.findProjectById(projectId);
     if (!foundProject) {
@@ -184,7 +184,7 @@ export class UserService {
     return await this.userRepository.save(foundUser);
   }
 
-  async addManagedProjectById(id: string, projectId: number): Promise<User> {
+  async addManagedProjectById(id: string, projectId: string): Promise<User> {
     const foundProject = await this.projectService.findProjectById(projectId);
     if (!foundProject) {
       throw new NotFoundException(`Project with ID ${projectId} not found`);

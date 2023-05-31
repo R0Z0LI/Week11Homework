@@ -41,7 +41,7 @@ export class ProjectService {
     return projects;
   }
 
-  async deleteProjectById(id: number): Promise<DeleteResult> {
+  async deleteProjectById(id: string): Promise<DeleteResult> {
     const project = await this.findProjectById(id);
 
     if (!project) {
@@ -55,7 +55,7 @@ export class ProjectService {
   }
 
   async updateProjectById(
-    projectId: number,
+    projectId: string,
     project: Project,
   ): Promise<Project> {
     const foundProject = await this.findProjectById(projectId);
@@ -68,7 +68,7 @@ export class ProjectService {
     });
   }
 
-  async findProjectById(id: number): Promise<Project> {
+  async findProjectById(id: string): Promise<Project> {
     const projectEntity = await this.projectRepository.findOne({
       where: { id: id },
       relations: ['manager', 'users'],
@@ -77,7 +77,7 @@ export class ProjectService {
   }
 
   async updateProjectArchiveById(
-    projectId: number,
+    projectId: string,
     archive: boolean,
   ): Promise<Project> {
     const foundProject = await this.findProjectById(projectId);
@@ -92,7 +92,7 @@ export class ProjectService {
     });
   }
 
-  async addTaskById(projectId: number, taskId: number) {
+  async addTaskById(projectId: string, taskId: number) {
     const foundProject = await this.findProjectById(projectId);
     if (!foundProject) {
       throw new NotFoundException(`Project with ID ${projectId} not found`);
@@ -108,7 +108,7 @@ export class ProjectService {
   }
 
   async updateProjectStatusbyId(
-    id: number,
+    id: string,
     projectStatus: ProjectStatus,
   ): Promise<Project> {
     const foundProject = await this.findProjectById(id);
