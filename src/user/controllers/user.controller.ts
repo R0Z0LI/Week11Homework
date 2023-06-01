@@ -92,30 +92,4 @@ export class UserController {
   ): Promise<User> {
     return this.userService.addManagedProjectById(id, projectId);
   }
-
-  @Put('remove/project/:id/:projectId')
-  @UseGuards(AdminAuthGuard)
-  removeProjectById(
-    @Param('id') id: string,
-    @Param('projectId') projectId: string,
-  ): Promise<User> {
-    return this.userService.removeUserFromProject(id, projectId);
-  }
-
-  @Put('remove/task/:id/:projectId')
-  removeTaskById(
-    @Param('id') id: string,
-    @Param('taskId') taskId: string,
-  ): Promise<User> {
-    return this.userService.removeUserFromTask(id, taskId);
-  }
-
-  @Put('remove/managed/:id/:projectId')
-  @UseGuards(AdminAuthGuard)
-  removeManagedProjectById(
-    @Param('id') id: string,
-    @Param('taskId') projectId: string,
-  ): Promise<User> {
-    return this.userService.removeUserFromManagedProject(id, projectId);
-  }
 }
