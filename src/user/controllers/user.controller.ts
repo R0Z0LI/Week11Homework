@@ -12,33 +12,44 @@ import { User } from '../models/user.interface';
 import { UserService } from '../services/user.service';
 import { DeleteResult } from 'typeorm';
 import { AdminAuthGuard } from 'src/auth/guards/admin.auth.guard';
+import { UserAuthGuard } from '../../auth/guards/user.auth.guard';
 
 @Controller('user')
-@UseGuards(AdminAuthGuard)
 export class UserController {
   constructor(private userService: UserService) {}
 
   @Post()
+  @UseGuards(AdminAuthGuard)
   createUser(@Body() user: User): Promise<User> {
     return this.userService.createUser(user);
   }
 
   @Get()
+  @UseGuards(AdminAuthGuard)
   findAllUser(): Promise<User[]> {
     return this.userService.findAllUser();
   }
 
+  @Get(':id')
+  @UseGuards(UserAuthGuard)
+  findUserById(@Param('id') id: string): Promise<User> {
+    return this.userService.findUserById(id);
+  }
+
   @Delete(':id')
+  @UseGuards(AdminAuthGuard)
   deleteUserById(@Param('id') id: string): Promise<DeleteResult> {
     return this.userService.deleteUserById(id);
   }
 
   @Put(':id')
+  @UseGuards(AdminAuthGuard)
   updateUserById(@Param('id') id: string, @Body() user: User): Promise<User> {
     return this.userService.updateUserById(id, user);
   }
 
   @Put('role/:id')
+  @UseGuards(AdminAuthGuard)
   updateRoleById(
     @Param('id') id: string,
     @Body() admin: boolean,
@@ -47,6 +58,7 @@ export class UserController {
   }
 
   @Put('suspend/:id')
+  @UseGuards(AdminAuthGuard)
   updateSuspendById(
     @Param('id') id: string,
     @Body() suspendData: { suspend: boolean },
@@ -55,6 +67,7 @@ export class UserController {
   }
 
   @Put('task/:id/:taskId')
+  @UseGuards(AdminAuthGuard)
   addTaskById(
     @Param('id') id: string,
     @Param('taskId') taskId: string,
@@ -63,6 +76,7 @@ export class UserController {
   }
 
   @Put('project/:id/:projectId')
+  @UseGuards(AdminAuthGuard)
   addProjectById(
     @Param('id') id: string,
     @Param('projectId') projectId: string,
@@ -71,6 +85,7 @@ export class UserController {
   }
 
   @Put('/managed/:id/:projectId')
+  @UseGuards(AdminAuthGuard)
   addManagedProjectById(
     @Param('id') id: string,
     @Param('projectId') projectId: string,
@@ -79,6 +94,7 @@ export class UserController {
   }
 
   @Put('remove/project/:id/:projectId')
+  @UseGuards(AdminAuthGuard)
   removeProjectById(
     @Param('id') id: string,
     @Param('projectId') projectId: string,
@@ -95,6 +111,7 @@ export class UserController {
   }
 
   @Put('remove/managed/:id/:projectId')
+  @UseGuards(AdminAuthGuard)
   removeManagedProjectById(
     @Param('id') id: string,
     @Param('taskId') projectId: string,

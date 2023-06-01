@@ -18,7 +18,6 @@ export class TaskService {
   ) {}
 
   async createTask(task: Task): Promise<Task> {
-    console.log(task);
     const user = await this.userRepository.findOne({
       where: { id: task.user.id },
     });
@@ -49,12 +48,9 @@ export class TaskService {
   async findTaskByUserId(id: string): Promise<Task[]> {
     const tasks = await this.findAllTask();
 
-    console.log(id);
     const filteredTasks = tasks.filter((task) => {
-      console.log(task.user.id);
       return task.user.id === id;
     });
-    console.log(filteredTasks);
     return filteredTasks;
   }
 

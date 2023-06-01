@@ -36,6 +36,7 @@ export class AuthService {
       access_token: await this.jwtService.signAsync(payload),
       role: upDateUser.isAdmin,
       suspended: upDateUser.isSuspended,
+      id: upDateUser.id,
     };
   }
   async validateToken(token: string): Promise<any> {

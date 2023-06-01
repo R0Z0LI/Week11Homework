@@ -85,7 +85,6 @@ export class ProjectService {
       throw new NotFoundException(`Project with ID ${projectId} not found`);
     }
     foundProject.isArchived = archive;
-    console.log(foundProject.isArchived);
     return await this.projectRepository.save({
       id: foundProject.id,
       ...foundProject,
