@@ -31,6 +31,11 @@ export class ProjectService {
       }
     }
     project.users = foundUsers;
+    if (!project.manager.isAdmin) {
+      throw new NotManagerException(
+        `User with Id ${project.manager.id} is not authorized to be a manager`,
+      );
+    }
     return await this.projectRepository.save(project);
   }
 
