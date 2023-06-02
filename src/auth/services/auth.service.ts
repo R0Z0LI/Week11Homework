@@ -23,7 +23,7 @@ export class AuthService {
     const passwordHash = crypto
       .createHash('sha256')
       .update(password)
-      .digest('hex');
+      .digest('base64');
     if (upDateUser?.password !== passwordHash) {
       throw new UnauthorizedException();
     }

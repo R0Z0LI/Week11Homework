@@ -20,7 +20,7 @@ export class UserService {
     const hashedPassword = crypto
       .createHash('sha256')
       .update(user.password)
-      .digest('hex');
+      .digest('base64');
     user.password = hashedPassword;
     return await this.userRepository.save(user);
   }
@@ -48,7 +48,7 @@ export class UserService {
     const hashedPassword = crypto
       .createHash('sha256')
       .update(user.password)
-      .digest('hex');
+      .digest('base64');
     user.password = hashedPassword;
     return await this.userRepository.save({ id: foundUser.id, ...user });
   }
